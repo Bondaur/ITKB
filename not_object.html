@@ -2,18 +2,32 @@
     <head> 
         <title>Мониторинг-управление</title> 
     </head> 
-
-    <script>
-        alert("1000");
-        //export const MyWidth = document.getElementsByName("Road");
-        //alert(MyWidth);
-    </script>
-    <frameset cols="50%,*" noresize>
-        <frame src="CrossRoad.html" name="Road"> 
-        <frameset rows="50%,*" noresize>
-            <frame src="monitoring1.html" name="monitoring1"> 
-            <frame src="monitoring2.html" name="monitoring2"> 
-        </frameset> 
-    </frameset> 
+    <head>
+        <style>
+            .CrossRoad {
+                float:left;
+                top: 0%;
+                width: 50%;
+                height: 100%;
+            }
+            .monitoring1 {
+                float: right;
+                top: 0%;
+                width:50%;
+                height: 50%;
+            }
+            .monitoring2 {
+                float: right;
+                top: 50%;
+                width: 50%;
+                height: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <iframe frameborder = "0" class = "CrossRoad" src="CrossRoad.html"></iframe>
+        <iframe frameborder = "0" class = "monitoring1" src="monitoring1.html"></iframe>
+        <iframe frameborder = "0" class = "monitoring2" src="monitoring2.html"></iframe>
+    </body>
 
 </html>
