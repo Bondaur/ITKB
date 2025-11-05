@@ -1,5 +1,37 @@
 <html>
     <body>
-        <img src="map.png" alt="Описание изображения">
+       <canvas id="canvas" width=925 height=920></canvas>
     </body>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.beginPath();
+        let x_bord = Array(0,canvas.offsetWidth);
+        let y_bord = Array(0,canvas.offsetHeight);
+    
+        //Границы
+        ctx.moveTo(x_bord[0], y_bord[0]);
+        ctx.lineTo(x_bord[1],y_bord[0]);
+        ctx.lineTo(x_bord[1],y_bord[1]);
+        ctx.lineTo(x_bord[0],y_bord[1]);
+        ctx.lineTo(x_bord[0],y_bord[0]);
+        ctx.strokeStyle = 'black';
+
+        //Дорога
+        ctx.fillStyle = "rgb(128,128,128)";
+        ctx.fillRect(270,100,400,700);
+        ctx.fillRect(120,250,700,400);
+
+        //Разметка
+        ctx.strokeStyle = "rgb(255,255,255)";
+        ctx.lineWidth = 5;
+        ctx.setLineDash([15, 20]);
+        ctx.moveTo(470,107);
+        ctx.lineTo(470,800);
+        ctx.moveTo(127,450);
+        ctx.lineTo(820,450);
+
+        ctx.stroke();
+        ctx.closePath();
+    </script>
 </html>
