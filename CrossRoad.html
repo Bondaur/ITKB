@@ -5,24 +5,30 @@
     <script>
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
+
+        //Границы
         ctx.beginPath();
         let x_bord = Array(0,canvas.offsetWidth);
         let y_bord = Array(0,canvas.offsetHeight);
-    
-        //Границы
+        ctx.strokeStyle = 'black';
         ctx.moveTo(x_bord[0], y_bord[0]);
         ctx.lineTo(x_bord[1],y_bord[0]);
         ctx.lineTo(x_bord[1],y_bord[1]);
         ctx.lineTo(x_bord[0],y_bord[1]);
         ctx.lineTo(x_bord[0],y_bord[0]);
-        ctx.strokeStyle = 'black';
+        ctx.stroke();
+        ctx.closePath();
 
         //Дорога
+        ctx.beginPath();
         ctx.fillStyle = "rgb(128,128,128)";
-        ctx.fillRect(270,100,400,700);
-        ctx.fillRect(120,250,700,400);
+        ctx.fillRect(300,100,330,700);
+        ctx.fillRect(120,280,700,330);
+        ctx.stroke();
+        ctx.closePath();
 
         //Разметка
+        ctx.beginPath();
         ctx.strokeStyle = "rgb(255,255,255)";
         ctx.lineWidth = 5;
         ctx.setLineDash([15, 20]);
@@ -30,8 +36,68 @@
         ctx.lineTo(470,800);
         ctx.moveTo(127,450);
         ctx.lineTo(820,450);
-
         ctx.stroke();
         ctx.closePath();
+
+        const TrafLightDir = {
+            DOWN: "down",
+            UP: "up",
+            RIGHT: "right",
+            LEFT: "left"
+        }
+
+        //СвЯтофоры
+        DrawTrafLight(300,280,TrafLightDir.DOWN,TrafLightDir.LEFT,ctx);
+        DrawTrafLight(300,280,TrafLightDir.RIGHT,TrafLightDir.UP,ctx);
+        DrawTrafLight(630,280,TrafLightDir.LEFT,TrafLightDir.UP,ctx);
+        DrawTrafLight(630,280,TrafLightDir.DOWN,TrafLightDir.RIGHT,ctx);
+        DrawTrafLight(300,610,TrafLightDir.UP,TrafLightDir.LEFT,ctx);
+        DrawTrafLight(300,610,TrafLightDir.RIGHT,TrafLightDir.DOWN,ctx);
+        DrawTrafLight(630,610,TrafLightDir.UP,TrafLightDir.RIGHT,ctx);
+        DrawTrafLight(630,610,TrafLightDir.LEFT,TrafLightDir.DOWN,ctx);
+        
+
+        function DrawTrafLight(x,y,pill_dir,traf_light_dir,ctx){
+            ctx.beginPath();
+            ctx.strokeStyle = "black";
+            ctx.setLineDash([]);
+            ctx.lineWidth = 5;
+            ctx.moveTo(x,y);
+            if (pill_dir == TrafLightDir.DOWN) {
+                ctx.lineTo(x,y+60);
+                ctx.stroke();
+                ctx.closePath();
+            }
+            if (pill_dir == TrafLightDir.UP) {
+                ctx.lineTo(x,y-60);
+                ctx.stroke();
+                ctx.closePath();
+            }
+            if (pill_dir == TrafLightDir.RIGHT) {
+                ctx.lineTo(x+60,y);
+                ctx.stroke();
+                ctx.closePath();
+            }
+            if (pill_dir == TrafLightDir.LEFT) {
+                ctx.lineTo(x-60,y);
+                ctx.stroke();
+                ctx.closePath();
+            }
+            ctx.beginPath();
+            ctx.strokeStyle = "black";
+            ctx.setLineDash([]);
+            ctx.lineWidth = 5;
+            var startAngle = 0;
+            var endAngle = 0;
+            var anticlockwise = true;
+            if (traf_light_dir == TrafLightDir.DOWN) {
+                startAngle = 0;
+                endAngle = Math.PI;
+                anticlockwise = true;
+                ctx.arc(x, y, 15, startAngle, endAngle, anticlockwise);
+            }
+            //Надо сделать через матрицу поворота?
+        }
+
     </script>
 </html>
