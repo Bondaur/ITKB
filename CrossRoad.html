@@ -47,57 +47,37 @@
         }
 
         //СвЯтофоры
-        DrawTrafLight(300,280,TrafLightDir.DOWN,TrafLightDir.LEFT,ctx);
-        DrawTrafLight(300,280,TrafLightDir.RIGHT,TrafLightDir.UP,ctx);
-        DrawTrafLight(630,280,TrafLightDir.LEFT,TrafLightDir.UP,ctx);
-        DrawTrafLight(630,280,TrafLightDir.DOWN,TrafLightDir.RIGHT,ctx);
-        DrawTrafLight(300,610,TrafLightDir.UP,TrafLightDir.LEFT,ctx);
-        DrawTrafLight(300,610,TrafLightDir.RIGHT,TrafLightDir.DOWN,ctx);
-        DrawTrafLight(630,610,TrafLightDir.UP,TrafLightDir.RIGHT,ctx);
-        DrawTrafLight(630,610,TrafLightDir.LEFT,TrafLightDir.DOWN,ctx);
+        DrawTrafLight(300,280,0,"red");
+        DrawTrafLight(300,280,Math.PI/2,"green");
+        DrawTrafLight(630,280,-Math.PI,"red");
+        DrawTrafLight(630,280, Math.PI/2,"green");
+        DrawTrafLight(300,610,0,"red");
+        DrawTrafLight(300,610,-Math.PI/2,"green");
+        DrawTrafLight(630,610,-Math.PI,"red");
+        DrawTrafLight(630,610,-Math.PI/2,"green");
         
-
-        function DrawTrafLight(x,y,pill_dir,traf_light_dir,ctx){
+        function DrawTrafLight(x,y,rotateAngle,color){
             ctx.beginPath();
             ctx.strokeStyle = "black";
             ctx.setLineDash([]);
             ctx.lineWidth = 5;
+            var length = 60;
             ctx.moveTo(x,y);
-            if (pill_dir == TrafLightDir.DOWN) {
-                ctx.lineTo(x,y+60);
-                ctx.stroke();
-                ctx.closePath();
-            }
-            if (pill_dir == TrafLightDir.UP) {
-                ctx.lineTo(x,y-60);
-                ctx.stroke();
-                ctx.closePath();
-            }
-            if (pill_dir == TrafLightDir.RIGHT) {
-                ctx.lineTo(x+60,y);
-                ctx.stroke();
-                ctx.closePath();
-            }
-            if (pill_dir == TrafLightDir.LEFT) {
-                ctx.lineTo(x-60,y);
-                ctx.stroke();
-                ctx.closePath();
-            }
-            ctx.beginPath();
-            ctx.strokeStyle = "black";
-            ctx.setLineDash([]);
-            ctx.lineWidth = 5;
+            ctx.lineTo(x+length*Math.cos(rotateAngle),y+length*Math.sin(rotateAngle));
+            ctx.stroke();
+            var light_center_lenght = 45;
+            var radius = 15;
             var startAngle = 0;
             var endAngle = 0;
             var anticlockwise = true;
-            if (traf_light_dir == TrafLightDir.DOWN) {
-                startAngle = 0;
-                endAngle = Math.PI;
-                anticlockwise = true;
-                ctx.arc(x, y, 15, startAngle, endAngle, anticlockwise);
-            }
-            //Надо сделать через матрицу поворота?
+            startAngle = 0 + rotateAngle;
+            endAngle = startAngle + Math.PI;
+            anticlockwise = true;
+            ctx.arc(x+light_center_lenght*Math.cos(rotateAngle), y+light_center_lenght*Math.sin(rotateAngle), radius, startAngle, endAngle, anticlockwise);
+            ctx.fillStyle = color
+            ctx.fill();
+            ctx.closePath();
         }
-
+        
     </script>
 </html>
