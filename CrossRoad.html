@@ -32,30 +32,25 @@
         ctx.strokeStyle = "rgb(255,255,255)";
         ctx.lineWidth = 5;
         ctx.setLineDash([15, 20]);
-        ctx.moveTo(470,107);
+        ctx.moveTo(470,109);
         ctx.lineTo(470,800);
-        ctx.moveTo(127,450);
+        ctx.moveTo(129,450);
         ctx.lineTo(820,450);
         ctx.stroke();
         ctx.closePath();
 
-        const TrafLightDir = {
-            DOWN: "down",
-            UP: "up",
-            RIGHT: "right",
-            LEFT: "left"
-        }
-
         //СвЯтофоры
-        DrawTrafLight(300,280,0,"red");
-        DrawTrafLight(300,280,Math.PI/2,"green");
-        DrawTrafLight(630,280,-Math.PI,"red");
-        DrawTrafLight(630,280, Math.PI/2,"green");
-        DrawTrafLight(300,610,0,"red");
-        DrawTrafLight(300,610,-Math.PI/2,"green");
-        DrawTrafLight(630,610,-Math.PI,"red");
-        DrawTrafLight(630,610,-Math.PI/2,"green");
-        
+        //Вертикальная дорого
+        DrawVRoadRed();
+        //Горизонтальная дорога
+        DrawHRoadGreen();
+
+        //Кнопки увеличения счётчиков
+        DrawButton(520,810);
+        DrawButton(370,40);
+        DrawButton(60,490);
+        DrawButton(830,340);
+
         function DrawTrafLight(x,y,rotateAngle,color){
             ctx.beginPath();
             ctx.strokeStyle = "black";
@@ -79,5 +74,45 @@
             ctx.closePath();
         }
         
+        function DrawVRoadRed(){
+            DrawTrafLight(300,280,0,"red");
+            DrawTrafLight(630,280,-Math.PI,"red");
+            DrawTrafLight(300,610,0,"red");
+            DrawTrafLight(630,610,-Math.PI,"red");
+        }
+        function DrawVRoadGreen(){
+            DrawTrafLight(300,280,0,"green");
+            DrawTrafLight(630,280,-Math.PI,"green");
+            DrawTrafLight(300,610,0,"green");
+            DrawTrafLight(630,610,-Math.PI,"green");
+        }
+        function DrawHRoadRed(){
+            DrawTrafLight(300,280,Math.PI/2,"red");
+            DrawTrafLight(630,280, Math.PI/2,"red");
+            DrawTrafLight(300,610,-Math.PI/2,"red");
+            DrawTrafLight(630,610,-Math.PI/2,"red");
+        }
+        function DrawHRoadGreen(){
+            DrawTrafLight(300,280,Math.PI/2,"green");
+            DrawTrafLight(630,280, Math.PI/2,"green");
+            DrawTrafLight(300,610,-Math.PI/2,"green");
+            DrawTrafLight(630,610,-Math.PI/2,"green");
+        }
+    
+        function DrawButton(x,y){
+            ctx.beginPath();
+            ctx.fillStyle = "rgb(0,128,128)";
+            ctx.fillRect(x,y,50,50);
+            ctx.strokeStyle = "rgb(0,0,128)"
+            ctx.lineWidth = 3;
+            ctx.moveTo(x+=15,y+=15);
+            ctx.lineTo(x,y+20);
+            ctx.moveTo(x-=10,y+10);
+            ctx.lineTo(x+20,y+10);
+            ctx.moveTo(x+=30,y);
+            ctx.lineTo(x,y+20);
+            ctx.stroke()
+            ctx.closePath();
+        }
     </script>
 </html>

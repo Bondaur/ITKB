@@ -31,21 +31,47 @@
     </body>
     <script>
         //alert(document.getElementById("1").offsetHeight);
-        const color = {
-            RED: "red",
-            YELLOW: "yellow",
-            GREEN: "green"
-        };
+
         class Road {
+            #FW_Count;
+            #BW_Count;
+            #Light;
+            #Time_from_Switch;
             constructor(FW_Count,BW_Count,Light){
-                this.FW_Count = FW_Count;
-                this.BW_Count = BW_Count;
-                this.Light = Light;
-                this.Time_from_Switch = 0;
+                this.#FW_Count = FW_Count;
+                this.#BW_Count = BW_Count;
+                this.#Light = Light;
+                this.#Time_from_Switch = 0;
                 //alert(this.Light)
             }
+            GetLight(){return this.#Light;}
+            ChangeLight(){
+                if(this.#Light == "red"){
+                    this.#Light = "green";
+                    //Должен быть вызов функции отрисовки 
+                }
+                else{
+                    this.#Light = "red";
+                    //Должен быть вызов функции отрисовки
+                }
+            }
+            GetFW_Count(){return this.#FW_Count;}
+            GetBW_Count(){return this.#FW_Count;}
+            AddFW(number){
+                this.#FW_Count += number;
+                //Должен быть вызов функции отрисовки
+            }
+            AddBW(number){
+                this.#BW_Count += number;
+                //Должен быть вызов функции отрисовки
+            }
+            GetTime_from_Switch(){return this.#Time_from_Switch;}
+            IncTime_from_Switch(){this.#Time_from_Switch++;}
         }
-        let HRoad = new Road(0,0,color.RED);
-        let VRoad = new Road(0,0,color.GREEN);
+       
+        let HRoad = new Road(0,0,"red");
+        let VRoad = new Road(0,0,"green");
+        HRoad.IncTime_from_Switch();
+        //alert(HRoad.GetTime_from_Switch());
     </script>
 </html>
